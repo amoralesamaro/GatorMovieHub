@@ -2,6 +2,21 @@
 #include <fstream>
 #include <sstream>
 
+bool Movie::operator<(const Movie& other) const
+{
+    return weighted_rating < other.weighted_rating;
+}
+
+bool Movie::operator>(const Movie& other) const
+{
+    return weighted_rating > other.weighted_rating;
+}
+
+bool Movie::operator==(const Movie& other) const
+{
+    return weighted_rating == other.weighted_rating;
+}
+
 // Method to insert a movie into the hash table
 void MovieHashTable::insert(const Movie &movie)
 {

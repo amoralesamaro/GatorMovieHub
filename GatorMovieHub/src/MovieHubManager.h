@@ -22,22 +22,29 @@ private:
      * Sorts the movie list by rating
      * @param movieList     the list of movies to be sorted
      */
-    void sortMovieList(vector<Movie> movieList);
+    void mergeSortMovieList(vector<Movie> movieList, int left, int right);
+
+    void merge(vector<Movie> movieList, int left, int mid, int right);
+
+    Movie searchMovieHelper(vector<Movie> movies, int low, int high, int movieID);
 
 public:
+    MovieHubManager();
     /***
      * Retrieves the movie list as a vector from the movie HashTable
      * @param table     hashtable containing movies
      * @return          returns the list of movies as a vector list of Movies
      */
-    vector<Movie> getMovieList(MovieHashTable table);
+    vector<Movie> getMovieList(const MovieHashTable& table);
 
     /***
      * Retreives the movie that matches the given movie id
      * @param movieID   the movie id of the Movie to return
      * @return          returns the Movie with the given movie id
      */
-    Movie getMovie(int movieID);
+    Movie getMovie(int movieID, const MovieHastTable& table);
+
+    Movie searchMovie(int movieID);
 
 };
 

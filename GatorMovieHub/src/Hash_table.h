@@ -19,6 +19,11 @@ struct Movie
 
     // Constructor to initialize the Movie struct
     Movie() : id(0), rating(0.0), rating_count(0), weighted_rating(0.0) {}
+
+    // Overload operators
+    bool operator<(const Movie& other) const;
+    bool operator>(const Movie& other) const;
+    bool operator==(const Movie& other) const;
 };
 
 // Class to handle the hash table using std::unordered_map
