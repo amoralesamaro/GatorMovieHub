@@ -1,52 +1,60 @@
-//
-// Created by Daniel Kim on 7/30/24.
-//
+#pragma once
 
-#ifndef GATORMOVIEHUB_MOVIEHUBMANAGER_H
-#define GATORMOVIEHUB_MOVIEHUBMANAGER_H
-#include <Hash_table.h>
+#include "HashTable.h"
+#include <vector>
+#include <string>
 
-/***
- * Manages Movie objects such as sorting obtaining movies
- */
-class MovieHubManager
+using namespace std;
+
+// Define a struct to store movie details and ratings
+struct Movie
 {
+    int id;                 // Movie ID
+    string title;           // Movie title
+    string genres;          // Movie genres
+    double rating;          // Average rating of the movie
+    int rating_count;       // Number of ratings received
+    double weighted_rating; // Weighted rating of the movie
 
-private:
-    /***
-     * Container to hold the list of movies
-     */
-    vector<Movie> movieList;
-
-    /***
-     * Sorts the movie list by rating
-     * @param movieList     the list of movies to be sorted
-     */
-    void mergeSortMovieList(vector<Movie> movieList, int left, int right);
-
-    void merge(vector<Movie> movieList, int left, int mid, int right);
-
-    Movie searchMovieHelper(vector<Movie> movies, int low, int high, int movieID);
-
-public:
-    MovieHubManager();
-    /***
-     * Retrieves the movie list as a vector from the movie HashTable
-     * @param table     hashtable containing movies
-     * @return          returns the list of movies as a vector list of Movies
-     */
-    vector<Movie> getMovieList(const MovieHashTable& table);
-
-    /***
-     * Retreives the movie that matches the given movie id
-     * @param movieID   the movie id of the Movie to return
-     * @return          returns the Movie with the given movie id
-     */
-    Movie getMovie(int movieID, const MovieHastTable& table);
-
-    Movie searchMovie(int movieID);
-
+    // Constructor to initialize the Movie struct
+    Movie() : id(0), rating(0.0), rating_count(0), weighted_rating(0.0) {}
 };
 
+// Class to handle the hash table using the custom HashTable
+class MovieHubManager
+{
+private:
+    HashTable<int, Movie> table; // Hash table to store movies
+    vector<Movie> sorted_movies; // Vector to store sorted movies
 
-#endif //GATORMOVIEHUB_MOVIEHUBMANAGER_H
+    // Merge function for merge sort
+    void merge(vector<Movie> &movies, int left, int mid, int right);
+
+    // Merge sort function
+    void mergeSort(vector<Movie> &movies, int left, int right);
+
+public:
+    MovieHubManager() {} // Default constructor
+
+    void insert(const Movie &movie);                                               // Method to insert a movie into the hash table
+    bool search(int id, Movie &movie);                                             // Method to search for a movie by its ID
+    void updateRating(int id, double rating);                                      // Method to update a movie's rating
+    void finalizeRatings();                                                        // Method to finalize the ratings and sort the movies
+    void display();                                                                // Method to display all movies in the hash table
+    void displayTopRated(int n);                                                   // Method to display top-rated movies
+    bool movieExists(const string &title) const;                                   // Method to check if a movie exists by its title and genres
+    bool addMovie(Movie &movie, const string &filename, const string &ratingFile); // Method to add a new movie
+    bool getMovieInput(Movie &newMovie);                                           // Method to get movie input from the user
+    int getNextID();                                                               // Method to get the next available ID
+};
+
+// Function to load movies from a file and insert them into the hash table
+void loadMovies(MovieHubManager &hashTable, const string &filename);
+// Function to load ratings from a file and update the hash table
+void loadRatings(MovieHubManager &hashTable, const string &filename);
+
+// Helper function to capitalize the first letter of each word in a string
+string capitalize(const string &str);
+
+// Helper function to check if a genre is valid
+bool isValidGenre(const string &genre, const vector<string> &validGenres);
