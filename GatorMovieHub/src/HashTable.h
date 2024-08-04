@@ -126,8 +126,3 @@ public:
         return size;
     }
 };
-
-// Function to load movies from a file and insert them into the hash table
-void loadMovies(MovieHashTable &hashTable, const string &filename);
-// Function to load ratings from a file and update the hash table
-void loadRatings(MovieHashTable &hashTable, const string &filename);
