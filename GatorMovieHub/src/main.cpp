@@ -50,6 +50,9 @@ int main(int argc, char *argv[])
         else if (cmd == "top_rated")
         {
             int n;
+            if (n <= 0) {
+                cout << "Please enter value greater than 0\n" << endl;
+            }
             if (ss >> n)
             {
                 hashTable.displayTopRated(n); // Display top n rated movies
