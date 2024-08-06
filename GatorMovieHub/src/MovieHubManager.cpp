@@ -145,6 +145,25 @@ void MovieHubManager::displayTopRated(int n)
     }
 }
 
+void MovieHubManager::displayTopRatedByGenres(string genre, int n)
+{
+    vector<Movie> topByGenre;
+    while (topByGenre.size() < n) {
+        for (int i = 0; i < sorted_movies.size(); ++i) {
+            if (sorted_movies[i].genres == genre) {
+                topByGenre.push_back(sorted_movies[i]);
+            }
+        }
+    }
+    for (int j = 0; j < n; j++) {
+        cout << "ID: " << sorted_movies[j].id << ", Title: " << sorted_movies[j].title
+             << ", Genres: " << sorted_movies[j].genres
+             << ", Rating: " << sorted_movies[j].rating
+             << ", Ratings Count: " << sorted_movies[j].rating_count << endl;
+    }
+
+}
+
 // New method to check if a movie exists by title
 bool MovieHubManager::movieExists(const string &title) const
 {
@@ -254,6 +273,13 @@ void loadMovies(MovieHubManager &hashTable, const string &filename)
 void loadRatings(MovieHubManager &hashTable, const string &filename)
 {
     ifstream file(filename); // Open the file
+
+    if (!file.is_open())
+    {
+        cerr << "Error opening file: " << filename << endl;
+        return; // Exit the function if file cannot be opened
+    }
+
     string line;
 
     // Read the file line by line

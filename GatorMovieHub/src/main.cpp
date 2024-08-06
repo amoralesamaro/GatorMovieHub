@@ -4,6 +4,7 @@
 #include <vector>
 #include <numeric>
 #include "MovieHubManager.h"
+#include <fstream>
 
 using namespace std;
 
@@ -13,6 +14,7 @@ void showCommands()
     cout << "Available commands:" << endl;
     cout << "  display_all      - Display all movies" << endl;
     cout << "  top_rated <n>    - Display top n rated movies" << endl;
+    cout << "  recommend_movie  - Recommend movie based on genre" << endl;
     cout << "  search <id>      - Search for a movie by ID" << endl;
     cout << "  add_movie        - Add a new movie" << endl;
     cout << "  exit             - Exit the program" << endl
@@ -58,6 +60,20 @@ int main(int argc, char *argv[])
                 cout << "Missing number of movie recommendations. Usage: top_rated <n>\n"
                      << endl;
             }
+        }
+        else if (cmd == "recommend_movie")
+        {
+            string genre;
+            cout << "What genre? ";
+            getline(cin, genre);
+
+            // Prompt for number of recommendations
+            int movieNum;
+            cout << "How many movies would you like recommended? ";
+            cin >> movieNum;
+
+            hashTable.displayTopRatedByGenres(genre, movieNum); // Recommend n movies in the genre
+            cout << endl;
         }
         else if (cmd == "search")
         {
