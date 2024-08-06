@@ -190,6 +190,13 @@ bool isValidGenre(const string &genre, const vector<string> &validGenres)
 void loadMovies(MovieHubManager &hashTable, const string &filename)
 {
     ifstream file(filename); // Open the file
+
+    if (!file.is_open())
+    {
+        cerr << "Error opening file: " << filename << endl;
+        return; // Exit the function if file cannot be opened
+    }
+
     string line;
 
     // Define the genre names in the correct order
