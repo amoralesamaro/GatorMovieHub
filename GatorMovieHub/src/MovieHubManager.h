@@ -42,7 +42,7 @@ public:
     void finalizeRatings();                                                        // Method to finalize the ratings and sort the movies
     void display();                                                                // Method to display all movies in the hash table
     void displayTopRated(int n);                                                   // Method to display top-rated movies
-    void displayTopRatedByGenres(string genre, int n);                             // Method to dsiplay top-rated movies by genre
+    void displayTopRatedByGenres(string genre, int n);                             // Method to display top-rated movies by genre
     bool movieExists(const string &title) const;                                   // Method to check if a movie exists by its title and genres
     bool addMovie(Movie &movie, const string &filename, const string &ratingFile); // Method to add a new movie
     bool getMovieInput(Movie &newMovie);                                           // Method to get movie input from the user

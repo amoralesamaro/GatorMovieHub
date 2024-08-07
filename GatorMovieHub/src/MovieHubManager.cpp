@@ -145,6 +145,7 @@ void MovieHubManager::displayTopRated(int n)
     }
 }
 
+// Method to display top-rated movies by genre
 void MovieHubManager::displayTopRatedByGenres(string genre, int n) // Added new method 
 {
     // List of valid genres
