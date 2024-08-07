@@ -71,11 +71,13 @@ int main(int argc, char *argv[])
             string genre;
             cout << "What genre? ";
             getline(cin, genre);
+            genre = capitalize(genre); // Capitalize use input
 
             // Prompt for number of recommendations
             int movieNum;
             cout << "How many movies would you like recommended? ";
             cin >> movieNum;
+            cin.ignore(); // to ignore the leftover newline characters
 
             hashTable.displayTopRatedByGenres(genre, movieNum); // Recommend n movies in the genre
             cout << endl;
