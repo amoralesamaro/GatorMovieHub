@@ -50,19 +50,21 @@ int main(int argc, char *argv[])
         else if (cmd == "top_rated")
         {
             int n;
-            if (n <= 0) {
-                cout << "Please enter value greater than 0\n" << endl;
-            }
             if (ss >> n)
             {
-                hashTable.displayTopRated(n); // Display top n rated movies
-                cout << endl;
+                if (n <= 0) // Moved this condition inside the block
+                {
+                    cout << "Please enter a value greater than 0\n"
+                        << endl;
+                continue;
             }
-            else
-            {
-                cout << "Missing number of movie recommendations. Usage: top_rated <n>\n"
-                     << endl;
-            }
+            hashTable.displayTopRated(n); // Display top n rated movies
+            cout << endl;
+        }
+        else
+        {
+            cout << "Missing number of movie recommendations. Usage: top_rated <n>\n"
+            << endl;
         }
         else if (cmd == "recommend_movie")
         {
