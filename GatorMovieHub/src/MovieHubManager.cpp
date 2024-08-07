@@ -145,23 +145,46 @@ void MovieHubManager::displayTopRated(int n)
     }
 }
 
-void MovieHubManager::displayTopRatedByGenres(string genre, int n)
+void MovieHubManager::displayTopRatedByGenres(string genre, int n) // Added new method 
 {
-    vector<Movie> topByGenre;
-    while (topByGenre.size() < n) {
-        for (int i = 0; i < sorted_movies.size(); ++i) {
-            if (sorted_movies[i].genres == genre) {
-                topByGenre.push_back(sorted_movies[i]);
-            }
-        }
-    }
-    for (int j = 0; j < n; j++) {
-        cout << "ID: " << sorted_movies[j].id << ", Title: " << sorted_movies[j].title
-             << ", Genres: " << sorted_movies[j].genres
-             << ", Rating: " << sorted_movies[j].rating
-             << ", Ratings Count: " << sorted_movies[j].rating_count << endl;
+    // List of valid genres
+    vector<string> validGenres = { "Unknown", "Action", "Adventure", "Animation", "Children's", "Comedy", "Crime", "Documentary", "Drama", "Fantasy", "Film-Noir", "Horror", "Musical", "Mystery", "Romance", "Sci-Fi", "Thriller", "War", "Western" };
+
+    // Capitalize genre input
+    genre = capitalize(genre); // Capitalize user input genre
+
+    // Check if genre is valid
+    if (!isValidGenre(genre, validGenres)) // Check if genre is valid 
+    {
+        cout << "Invalid genre: " << genre << endl;
+        return; // Exit if genre is not valid
     }
 
+    vector<Movie> topByGenre;
+    for (const auto& movie : sorted_movies)
+    {
+        if (movie.genres.find(genre) != string::npos)
+        {
+            topByGenre.push_back(movie);
+            if (topByGenre.size() == n)
+                break;
+        }
+    }
+
+    if (topByGenre.empty())
+    {
+        cout << "No movies found for the genre: " << genre << endl; // Display error if no movies found ***
+    }
+    else
+    {
+        for (const auto& movie : topByGenre)
+        {
+            cout << "ID: " << movie.id << ", Title: " << movie.title
+                << ", Genres: " << movie.genres
+                << ", Rating: " << movie.rating
+                << ", Ratings Count: " << movie.rating_count << endl;
+        }
+    }
 }
 
 // New method to check if a movie exists by title
