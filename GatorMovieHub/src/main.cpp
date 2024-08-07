@@ -66,6 +66,7 @@ int main(int argc, char *argv[])
             cout << "Missing number of movie recommendations. Usage: top_rated <n>\n"
             << endl;
         }
+    }
         else if (cmd == "recommend_movie")
         {
             string genre;
